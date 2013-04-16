@@ -1,0 +1,32 @@
+<head>
+  <title>cool_chat</title>
+</head>
+
+<body>
+  {{> newMessage}}
+  {{> messages}}
+  {{> footer}}
+</body>
+
+<template name="newMessage">
+  <input id="name" name="name" placeholder="Ihre Name">
+  <input id="newMessage" name="newMessage" spellcheck="true" type="text" placeholder="Write the message here!">
+</template>
+
+<template name="messages">
+<div id="chat">
+  {{#each messages}}
+    {{> message}}
+  {{/each}}
+</div>
+</template>
+
+<template name="message">
+  <p>{{name}} said: {{message}}</p>
+</template>
+
+<template name="footer">
+<footer>
+  Made by <a href="mailto:josefsson.martin@gmail.com">Martin Josefsson</a> for the HTML5 Berlin meetup. 
+</footer>
+</template>

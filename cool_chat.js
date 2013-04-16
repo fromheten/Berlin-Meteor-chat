@@ -1,11 +1,27 @@
 var Messages;
 Messages = new Meteor.Collection("messages");
 
-if (Meteor.is_client) {
-  window.Messages = Messages;
+if (Meteor.isServer) {
+  Meteor.publish("messages", function () {
+    return Messages.find({});
+  })
+
+  Messages.allow({
+    insert: function () {
+      return true;
+    }
+  })
+}
+
+if (Meteor.isClient) {
+  Meteor.autosubscribe(function () {
+    Meteor.subscribe("messages");
+  })
+
   Template.messages.messages = function() {
     return Messages.find({});
   };
+
   Template.newMessage.events = {
     'keyup #newMessage': function(event) {
       var name, newMessage;
